@@ -26,10 +26,10 @@ export default function MemoryCard({ memory, onNext }) {
         imageSrc={memory.img}
         altText={memory.text}
         captionText={memory.date}
-        containerHeight="420px"
-        containerWidth="420px"
-        imageHeight="420px"
-        imageWidth="420px"
+        containerHeight="360px"
+        containerWidth="360px"
+        imageHeight="360px"
+        imageWidth="360px"
         rotateAmplitude={20}
         scaleOnHover={1.15}
         showMobileWarning={false}
@@ -43,3 +43,4 @@ export default function MemoryCard({ memory, onNext }) {
     </div>
   );
 }
+
