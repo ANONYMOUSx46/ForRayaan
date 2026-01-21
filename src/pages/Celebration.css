@@ -1,0 +1,12 @@
+.glow-title-celebrate {
+  font-size: 3rem;
+  color: #ff69b4;
+  text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4, 0 0 30px #ff1493;
+}
+
+.glow-celebrate-sub {
+  font-size: 1.5rem;
+  color: #ffb6c1;
+  text-shadow: 0 0 5px #ffb6c1, 0 0 10px #ff69b4;
+  margin-top: 1rem;
+}
