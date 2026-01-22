@@ -1,34 +1,57 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function MusicPlayer() {
   const audioRef = useRef(null);
-  const [unlocked, setUnlocked] = useState(false);
+  const [started, setStarted] = useState(false);
 
-  useEffect(() => {
-    function unlockAudio() {
-      if (!audioRef.current || unlocked) return;
+  const startMusic = () => {
+    if (!audioRef.current || started) return;
 
-      audioRef.current.volume = 0.5;
-      audioRef.current.play().then(() => {
-        setUnlocked(true);
-      }).catch(() => {
-        // Safari / iOS sometimes needs a second tap
+    audioRef.current.volume = 0.5;
+    audioRef.current.muted = false;
+
+    audioRef.current
+      .play()
+      .then(() => {
+        setStarted(true);
+      })
+      .catch(() => {
+        // iOS fallback: try again
+        audioRef.current.play();
       });
-    }
-
-    window.addEventListener("pointerdown", unlockAudio, { once: true });
-
-    return () => {
-      window.removeEventListener("pointerdown", unlockAudio);
-    };
-  }, [unlocked]);
+  };
 
   return (
-    <audio
-      ref={audioRef}
-      src="/love.mp3"
-      loop
-      preload="auto"
-    />
+    <>
+      {/* AUDIO ELEMENT */}
+      <audio
+        ref={audioRef}
+        src="/love.mp3"
+        loop
+        preload="auto"
+      />
+
+      {/* TAP OVERLAY (required for mobile) */}
+      {!started && (
+        <div
+          onClick={startMusic}
+          onTouchStart={startMusic}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0,0,0,0.85)",
+            color: "#fff",
+            fontSize: 18,
+            cursor: "pointer",
+          }}
+        >
+          💖 Tap to start the magic 💖
+        </div>
+      )}
+    </>
   );
 }
